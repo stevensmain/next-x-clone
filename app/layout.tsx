@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
 import { Providers } from "./providers";
+import Sidebar from "@/components/ui/sidebar";
+
+import type { Metadata } from "next";
 
 import "./globals.css";
 
@@ -16,7 +18,19 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <div className="container h-full mx-auto max-w-6xl">
+            <div className="grid grid-cols-4 h-full">
+              <Sidebar />
+
+              <main className="w-full border-l border-r border-white/20 min-h-screen col-span-2">
+                {children}
+              </main>
+
+              <div></div>
+            </div>
+          </div>
+        </Providers>
       </body>
     </html>
   );

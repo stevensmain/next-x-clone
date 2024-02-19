@@ -24,11 +24,9 @@ export default async function Home() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
-      <section className="max-w-[600px] w-full mx-auto border-l border-r border-white/20 min-h-screen">
-        <ComposePost avatarUrl={session.user.user_metadata.avatar_url} />
-        <PostList posts={posts} />
-      </section>
-    </main>
+    <>
+      <ComposePost avatarUrl={session.user.user_metadata.avatar_url} />
+      <PostList posts={posts} />
+    </>
   );
 }
