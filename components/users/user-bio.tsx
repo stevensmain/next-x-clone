@@ -16,6 +16,11 @@ export default async function UserBio({ userId }: UserBioProps) {
     error,
     status,
   } = await supabase.from("users").select().eq("id", userId).single();
+  const createdAtDate = user ? new Date(user.created_at) : new Date();
+  const createdAt = createdAtDate.toLocaleDateString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
 
   return (
     <div className="border-b-[1px] border-neutral-800 pb-4">
@@ -48,7 +53,7 @@ export default async function UserBio({ userId }: UserBioProps) {
           "
           >
             <IconCalendar className="h-6 w-6" />
-            <p>Joined {user?.created_at}</p>
+            <p>Joined {createdAt}</p>
           </div>
         </div>
         <div className="flex flex-row items-center mt-4 gap-6">
