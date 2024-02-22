@@ -1,5 +1,6 @@
+import Sidebar from "@/components/layout/sidebar";
+import FollowBar from "@/components/layout/follow-bar";
 import { Providers } from "./providers";
-import Sidebar from "@/components/ui/sidebar";
 
 import type { Metadata } from "next";
 
@@ -27,7 +28,7 @@ export default function RootLayout({
                 {children}
               </main>
 
-              <div></div>
+              <FollowBar />
             </div>
           </div>
         </Providers>
