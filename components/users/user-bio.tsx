@@ -1,21 +1,16 @@
-import { cookies } from "next/headers";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Avatar, Button } from "@nextui-org/react";
 import { IconCalendar } from "@tabler/icons-react";
 
 import { type Database } from "@/types";
+import useSession from "@/hooks/useSession";
 
 interface UserBioProps {
-  userId: string;
+  user: Database["public"]["Tables"]["users"]["Row"];
 }
 
-export default async function UserBio({ userId }: UserBioProps) {
-  const supabase = createServerComponentClient<Database>({ cookies });
-  const {
-    data: user,
-    error,
-    status,
-  } = await supabase.from("users").select().eq("id", userId).single();
+export default async function UserBio({ user }: UserBioProps) {
+  const session = await useSession();
+
   const createdAtDate = user ? new Date(user.created_at) : new Date();
   const createdAt = createdAtDate.toLocaleDateString("en-US", {
     month: "long",
@@ -23,13 +18,13 @@ export default async function UserBio({ userId }: UserBioProps) {
   });
 
   return (
-    <div className="border-b-[1px] border-neutral-800 pb-4">
+    <div className="border-b-[1px] border-white/20 pb-4">
       <div className="flex justify-end p-4"></div>
       <div className="mt-12 px-4">
         <div className="flex flex-col">
           <div className="flex flex-row justify-between">
             <Avatar src={user?.avatar_url} className="w-24 h-24 -mt-12" />
-            {user?.id === userId ? (
+            {user?.id === session?.user?.id ? (
               <Button variant="bordered" className="rounded-full">
                 Edit profile
               </Button>

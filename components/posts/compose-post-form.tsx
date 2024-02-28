@@ -17,7 +17,8 @@ export default function ComposePostForm() {
       <textarea
         name="content"
         rows={2}
-        className="w-full bg-black text-lg placeholder-gray-500 outline-none"
+        maxLength={128}
+        className="w-full bg-black text-lg placeholder-gray-500 outline-none resize-none"
         placeholder="What's on your mind?"
       ></textarea>
       <button

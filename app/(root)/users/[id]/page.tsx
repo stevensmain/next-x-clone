@@ -3,8 +3,9 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import { Database } from "@/types";
 
-import PostList from "@/components/post-list";
+import PostList from "@/components/posts/post-list";
 import UserBio from "@/components/users/user-bio";
+import Header from "@/components/header";
 
 export default async function ProfilePage({
   params: { id },
@@ -19,9 +20,20 @@ export default async function ProfilePage({
     .order("created_at", { ascending: false })
     .match({ user_id: id });
 
+  const { data: user, error } = await supabase
+    .from("users")
+    .select()
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    throw error;
+  }
+
   return (
     <>
-      <UserBio userId={id} />
+      <Header label={user?.name} showBackArrow />
+      <UserBio user={user} />
       <PostList posts={posts} />
     </>
   );

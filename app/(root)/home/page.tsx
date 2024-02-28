@@ -2,11 +2,11 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { type Database } from "@/types";
+import { Post, type Database } from "@/types";
 
-import AuthButtonServer from "@/components/auth-button-server";
-import PostList from "@/components/post-list";
-import ComposePost from "@/components/compose-post";
+import ComposePost from "@/components/posts/compose-post";
+import Header from "@/components/header";
+import PostList from "@/components/posts/post-list";
 
 export default async function Home() {
   const supabase = createServerComponentClient<Database>({ cookies });
@@ -17,7 +17,8 @@ export default async function Home() {
   const { data: posts } = await supabase
     .from("posts")
     .select("*, user:users(*)")
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .returns<Post[]>();
 
   if (session === null) {
     redirect("/login");
@@ -25,8 +26,13 @@ export default async function Home() {
 
   return (
     <>
+      <Header label="Home" />
       <ComposePost avatarUrl={session.user.user_metadata.avatar_url} />
-      <PostList posts={posts} />
+      {posts === null || posts.length === 0 ? (
+        <p>No posts found</p>
+      ) : (
+        <PostList posts={posts} />
+      )}
     </>
   );
 }

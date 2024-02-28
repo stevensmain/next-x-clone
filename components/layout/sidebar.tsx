@@ -17,7 +17,7 @@ export default async function Sidebar() {
     {
       icon: IconHome,
       label: "Home",
-      href: "/",
+      href: "/home",
     },
     {
       icon: IconBellFilled,
@@ -37,7 +37,7 @@ export default async function Sidebar() {
     <div className="sticky top-0 col-span-1 h-full pr-4 md:pr-6">
       <div className="flex flex-col items-end">
         <div className="space-y-2 lg:w-[230px]">
-          <Link href="/">
+          <Link href="/home">
             <div className="rounded-full h-14 w-14 p-4 flex items-center justify-center hover:bg-blue-300 hover:bg-opacity-10 cursor-pointer">
               <IconBrandTwitter />
             </div>

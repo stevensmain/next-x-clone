@@ -1,10 +1,12 @@
-import Sidebar from "@/components/layout/sidebar";
+import { Providers } from "../providers";
+
 import FollowBar from "@/components/layout/follow-bar";
-import { Providers } from "./providers";
+import Modal from "@/components/modal";
+import Sidebar from "@/components/layout/sidebar";
 
 import type { Metadata } from "next";
 
-import "./globals.css";
+import "../globals.css";
 
 export const metadata: Metadata = {
   title: "X Clone",
