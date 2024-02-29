@@ -1,28 +1,44 @@
-import Input from "../input";
-import Modal from "../modal";
+'use client';
+import { useCallback, useState } from 'react';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { toast } from 'react-toastify';
 
-const LoginModal = () => {
+import useLoginModal from '@/hooks/useLoginModal';
+import useRegisterModal from '@/hooks/useRegisterModal';
+
+import Input from '../input';
+import Modal from '../modal';
+
+export default function LoginModal() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const supabase = createClientComponentClient();
 
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
 
-      await signIn("credentials", {
-        email,
-        password,
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
       });
 
-      toast.success("Logged in");
+      if (error) throw error;
+
+      toast.success('Logged in');
 
       loginModal.onClose();
     } catch (error) {
-      toast.error("Something went wrong");
+      let errorMessage = 'Something went wrong';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -31,19 +47,19 @@ const LoginModal = () => {
   const onToggle = useCallback(() => {
     loginModal.onClose();
     registerModal.onOpen();
-  }, [loginModal, registerModal]);
+  }, [loginModal]);
 
   const bodyContent = (
-    <div className="flex flex-col gap-4">
+    <div className='flex flex-col gap-4'>
       <Input
-        placeholder="Email"
+        placeholder='Email'
         onChange={(e) => setEmail(e.target.value)}
         value={email}
         disabled={isLoading}
       />
       <Input
-        placeholder="Password"
-        type="password"
+        placeholder='Password'
+        type='password'
         onChange={(e) => setPassword(e.target.value)}
         value={password}
         disabled={isLoading}
@@ -52,18 +68,18 @@ const LoginModal = () => {
   );
 
   const footerContent = (
-    <div className="text-neutral-400 text-center mt-4">
+    <div className='text-neutral-400 text-center mt-4'>
       <p>
         First time using Twitter?
         <span
           onClick={onToggle}
-          className="
+          className='
             text-white 
             cursor-pointer 
             hover:underline
-          "
+          '
         >
-          {" "}
+          {' '}
           Create an account
         </span>
       </p>
@@ -74,14 +90,12 @@ const LoginModal = () => {
     <Modal
       disabled={isLoading}
       isOpen={loginModal.isOpen}
-      title="Login"
-      actionLabel="Sign in"
+      title='Login'
+      actionLabel='Sign in'
       onClose={loginModal.onClose}
       onSubmit={onSubmit}
       body={bodyContent}
       footer={footerContent}
     />
   );
-};
-
-export default LoginModal;
+}

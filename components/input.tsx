@@ -10,15 +10,15 @@ interface InputProps {
 export default function Input({
   placeholder,
   value,
-  type = "text",
+  type = 'text',
   onChange,
   disabled,
   label,
 }: InputProps) {
   return (
-    <div className="w-full">
+    <div className='w-full'>
       {label && (
-        <p className="text-xl text-white font-semibold mb-2">{label}</p>
+        <p className='text-xl text-white font-semibold mb-2'>{label}</p>
       )}
       <input
         disabled={disabled}
@@ -26,7 +26,7 @@ export default function Input({
         value={value}
         placeholder={placeholder}
         type={type}
-        className="
+        className='
             w-full
             p-4 
             text-lg 
@@ -42,7 +42,7 @@ export default function Input({
             disabled:bg-neutral-900
             disabled:opacity-70
             disabled:cursor-not-allowed
-          "
+          '
       />
     </div>
   );

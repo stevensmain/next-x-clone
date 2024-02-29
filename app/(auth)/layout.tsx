@@ -1,12 +1,15 @@
-import { Providers } from "../providers";
+import type { Metadata } from 'next';
+import { ToastContainer } from 'react-toastify';
 
-import type { Metadata } from "next";
+import { Providers } from '../providers';
+import LoginModal from '@/components/modals/login-modal';
 
-import "../globals.css";
+import 'react-toastify/dist/ReactToastify.css';
+import '../globals.css';
+import RegisterModal from '@/components/modals/register-modal';
 
 export const metadata: Metadata = {
-  title: "X Clone",
-  description: "The main web app",
+  title: "X Clone - What's happening now?",
 };
 
 export default function RootLayout({
@@ -15,10 +18,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang='en' className='dark'>
       <body>
         <Providers>
-          <div className="container h-full mx-auto max-w-6xl">{children}</div>
+          <div className='container h-full mx-auto max-w-6xl'>{children}</div>
+
+          <LoginModal />
+          <RegisterModal />
+          <ToastContainer />
         </Providers>
       </body>
     </html>

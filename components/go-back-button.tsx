@@ -1,8 +1,8 @@
-"use client";
-import { useCallback } from "react";
-import { useRouter } from "next/navigation";
-import { Button } from "@nextui-org/react";
-import { IconArrowLeft } from "@tabler/icons-react";
+'use client';
+import { useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import { Button } from '@nextui-org/react';
+import { IconArrowLeft } from '@tabler/icons-react';
 
 export default function GoBackButton() {
   const router = useRouter();
@@ -13,11 +13,11 @@ export default function GoBackButton() {
 
   return (
     <Button
-      color="default"
+      color='default'
       isIconOnly
-      variant="light"
-      aria-label="Go back"
-      radius="full"
+      variant='light'
+      aria-label='Go back'
+      radius='full'
       onClick={handleBack}
     >
       <IconArrowLeft />

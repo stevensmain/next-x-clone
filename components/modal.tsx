@@ -1,5 +1,5 @@
-import { Button } from "@nextui-org/react";
-import { IconX } from "@tabler/icons-react";
+import { Button } from '@nextui-org/react';
+import { IconX } from '@tabler/icons-react';
 
 interface ModalProps {
   isOpen?: boolean;
@@ -8,6 +8,8 @@ interface ModalProps {
   footer?: React.ReactElement;
   actionLabel: string;
   disabled?: boolean;
+  onClose: () => void;
+  onSubmit: () => void;
 }
 
 export default function Modal({
@@ -17,6 +19,8 @@ export default function Modal({
   actionLabel,
   footer,
   disabled,
+  onClose,
+  onSubmit,
 }: ModalProps) {
   if (!isOpen) {
     return null;
@@ -24,11 +28,11 @@ export default function Modal({
 
   return (
     <>
-      <div className=" justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800 bg-opacity-70">
-        <div className="relative w-full lg:w-3/6 my-6 mx-auto lg:max-w-3xl h-full lg:h-auto">
+      <div className=' justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800 bg-opacity-70'>
+        <div className='relative w-full lg:w-3/6 my-6 mx-auto lg:max-w-3xl h-full lg:h-auto'>
           {/*content*/}
           <div
-            className="
+            className='
             h-full
             lg:h-auto
             border-0 
@@ -41,35 +45,41 @@ export default function Modal({
             bg-black 
             outline-none 
             focus:outline-none
-            "
+            '
           >
             {/*header*/}
             <div
-              className="
+              className='
               flex 
               items-center 
               justify-between 
               p-10 
               rounded-t
-              "
+              '
             >
-              <h3 className="text-3xl font-semibold text-white">{title}</h3>
+              <h3 className='text-3xl font-semibold text-white'>{title}</h3>
               <Button
-                color="default"
+                color='default'
                 isIconOnly
-                variant="light"
-                aria-label="Go back"
-                radius="full"
+                variant='light'
+                aria-label='Go back'
+                radius='full'
+                onClick={onClose}
               >
-                <IconX className="w-6 h-6" />
+                <IconX className='w-6 h-6' />
               </Button>
             </div>
             {/*body*/}
-            <div className="relative p-10 flex-auto">{body}</div>
+            <div className='relative p-10 flex-auto'>{body}</div>
 
             {/*footer*/}
-            <div className="flex flex-col gap-2 p-10">
-              <Button disabled={disabled} color="primary" fullWidth>
+            <div className='flex flex-col gap-2 p-10'>
+              <Button
+                disabled={disabled}
+                color='primary'
+                fullWidth
+                onClick={onSubmit}
+              >
                 {actionLabel}
               </Button>
               {footer}

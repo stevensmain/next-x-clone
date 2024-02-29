@@ -20,14 +20,11 @@ export default async function Home() {
     .order("created_at", { ascending: false })
     .returns<Post[]>();
 
-  if (session === null) {
-    redirect("/login");
-  }
-
   return (
     <>
       <Header label="Home" />
-      <ComposePost avatarUrl={session.user.user_metadata.avatar_url} />
+      <ComposePost avatarUrl={session?.user.user_metadata.avatar_url} />
+
       {posts === null || posts.length === 0 ? (
         <p>No posts found</p>
       ) : (

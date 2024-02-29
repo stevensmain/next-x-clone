@@ -19,16 +19,16 @@ export default async function Sidebar() {
       label: "Home",
       href: "/home",
     },
-    {
+    /*  {
       icon: IconBellFilled,
       label: "Notifications",
       href: "/notifications",
       auth: true,
-    },
+    }, */
     {
       icon: IconUser,
       label: "Profile",
-      href: `/users/${session?.user.id}`,
+      href: `/users/${session?.user.user_metadata?.user_name}`,
       auth: true,
     },
   ];
