@@ -1,25 +1,18 @@
 'use client'
-import { useRouter } from 'next/navigation'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Button } from '@nextui-org/button'
 import { IconBrandGithub } from '@tabler/icons-react'
 
 export default function AuthButtonClient() {
   const supabase = createClientComponentClient()
-  const route = useRouter()
 
   const handleSignIn = async () => {
     await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
-        redirectTo: process.env.NEXT_AUTH_CALLBACK_URL,
+        redirectTo: process.env.NEXT_PUBLIC_CALLBACK_URL,
       },
     })
-  }
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut()
-    route.refresh()
   }
 
   return (
