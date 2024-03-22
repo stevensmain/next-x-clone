@@ -7,7 +7,6 @@ export default function AuthButtonClient() {
   const supabase = createClientComponentClient()
 
   const handleSignIn = async () => {
-    console.log(process.env.NEXT_PUBLIC_CALLBACK_URL)
     await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
