@@ -28,7 +28,11 @@ export default async function ProfilePage({
     .returns<Post[]>()
 
   if (error) {
-    return <p>Ha ocurrido un error</p>
+    return (
+      <div className='p-3'>
+        <p className='text-center text-lg'>Ha ocurrido un error 😞</p>
+      </div>
+    )
   }
 
   return (
