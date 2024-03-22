@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import {
-  IconBellFilled,
   IconBrandTwitter,
   IconHome,
   IconLogout,
@@ -19,6 +18,7 @@ export default async function Sidebar() {
       label: 'Home',
       href: '/home',
     },
+    // TODO - Add notifications
     /*  {
       icon: IconBellFilled,
       label: "Notifications",
@@ -56,7 +56,6 @@ export default async function Sidebar() {
               <SidebarItem icon={IconLogout} label='Logout' />
             </Link>
           )}
-          {/* <SidebarTweetButton /> */}
         </div>
       </div>
     </div>
