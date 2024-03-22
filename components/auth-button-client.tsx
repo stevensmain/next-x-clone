@@ -1,9 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import {
-  type Session,
-  createClientComponentClient,
-} from '@supabase/auth-helpers-nextjs'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Button } from '@nextui-org/button'
 import { IconBrandGithub } from '@tabler/icons-react'
 
@@ -15,7 +12,7 @@ export default function AuthButtonClient() {
     await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
-        redirectTo: '/auth/callback',
+        redirectTo: process.env.NEXT_AUTH_CALLBACK_URL,
       },
     })
   }
